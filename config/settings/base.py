@@ -14,7 +14,7 @@ other sources used:
 """
 import os
 import environ
-#import dj_database_url
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -117,18 +117,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # Database setting moved to sub settings
-# Imported these setting from previous build
-#DATABASES['default'] = dj_database_url.config()
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dcai_data',
-        'USER': 'dcai_classification',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
+# Imported these setting from devcenter.Heroku
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
