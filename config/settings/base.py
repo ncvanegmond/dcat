@@ -18,11 +18,14 @@ import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 ROOT_DIR = environ.Path(__file__) - 3
 APPS_DIR = ROOT_DIR.path('project')
 
-env = environ.Env()
+
 # This section added from an update to standards in CookieCutter Django to ensure no errors are encountered at runserver/migrations
+env = environ.Env()
 READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
 if READ_DOT_ENV_FILE:
     env_file = str(ROOT_DIR.path('.env'))
@@ -34,7 +37,7 @@ if READ_DOT_ENV_FILE:
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DJANGO_DEBUG', False)
+DEBUG = env.bool('DJANGO_DEBUG', True)
 
 #TODO figure out where this goes 
 #TODO figure out how this works with environ?
@@ -47,9 +50,9 @@ DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
 )
 
@@ -76,7 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-#    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 #THIRD_PARTY_MIDDLEWARE = [
@@ -170,6 +173,11 @@ STATICFILES_FINDERS = (
 )
 MEDIA_URL = '/media/'
 MEDIA_ROOT = str(APPS_DIR('media'))
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+#TODO review this addition
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # REST Framework settings
 REST_FRAMEWORK = {
