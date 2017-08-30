@@ -1,0 +1,1 @@
+web: gunicorn eur_edgar_data.wsgi
