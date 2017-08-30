@@ -11,7 +11,8 @@ import os
 from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.base")
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings.local")
 
 application = get_wsgi_application()
