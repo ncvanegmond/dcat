@@ -12,11 +12,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 other sources used:
     https://medium.com/@djstein/modern-django-part-1-project-refactor-and-meeting-the-django-settings-api-d2784efb606f
 """
-
+import os
 import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = environ.Path(__file__) - 3
 APPS_DIR = ROOT_DIR.path('project')
 
@@ -35,7 +35,9 @@ if READ_DOT_ENV_FILE:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DJANGO_DEBUG', False)
 
-
+#TODO figure out where this goes 
+#TODO figure out how this works with environ?
+SITE_ID = 1
 
 
 # Application definition
@@ -45,14 +47,21 @@ DJANGO_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
 
 THIRD_PARTY_APPS = (
+    'crispy_forms',
+    'django_bitly',
+    'django_social_share',
+    'rest_framework',
 )
 
 LOCAL_APPS = (
+    'project.api',
+    'project.apicc',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -66,14 +75,24 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+#THIRD_PARTY_MIDDLEWARE = [
+#        'whitenoise.middleware.WhiteNoiseMiddleware',
+#]
+#
+#MIDDLEWARE = DJANGO_MIDDLEWARE + THIRD_PARTY_MIDDLEWARE
 
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        #TODO rewrite to use environ syntax
+#        'DIRS': [os.path.join(os.path.dirname(__file__), 'templates'),],
+        'DIRS': [ROOT_DIR.path('templates'),],
+#        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,16 +109,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': str(ROOT_DIR.path('db.sqlite3')),
-    }
-}
-
+# Database setting moved to sub settings
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -136,7 +146,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = str(ROOT_DIR('staticfiles'))
 STATICFILES_DIRS = (
@@ -148,3 +157,18 @@ STATICFILES_FINDERS = (
 )
 MEDIA_URL = '/media/'
 MEDIA_ROOT = str(APPS_DIR('media'))
+
+# REST Framework settings
+REST_FRAMEWORK = {
+}
+
+# CRISPI FORMS settings
+# let crispy tell you what's wrong - https://django-crispy-forms.readthedocs.io/en/latest/crispy_tag_forms.html#make-crispy-forms-fail-loud
+#CRISPY_FAIL_SILENTLY = not DEBUG
+CRISPY_FAIL_SILENTLY = not DEBUG
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+# https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/heroku/
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+

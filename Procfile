@@ -1,1 +1,1 @@
-web: gunicorn eur_edgar_data.wsgi
+web: gunicorn config.wsgi
