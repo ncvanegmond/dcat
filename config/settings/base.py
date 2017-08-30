@@ -122,19 +122,18 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dcai_data',
-        'USER': 'dcai_classification',
+        'NAME': 'dcat_data',
+        'USER': 'dcat_user',
         'PASSWORD': '',
-        # remove localhost from hosts
         'HOST': '',
         'PORT': '',
     }
 }
 
 # Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['TEST'] = {'NAME': DATABASES['default']['NAME']}
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
+DATABASES['default'] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
