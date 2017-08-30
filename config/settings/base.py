@@ -187,6 +187,9 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 REST_FRAMEWORK = {
 }
 
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
 # CRISPI FORMS settings
 # let crispy tell you what's wrong - https://django-crispy-forms.readthedocs.io/en/latest/crispy_tag_forms.html#make-crispy-forms-fail-loud
 #CRISPY_FAIL_SILENTLY = not DEBUG
