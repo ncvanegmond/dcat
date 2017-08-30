@@ -117,7 +117,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # Database setting moved to sub settings
-# Imported these setting from devcenter.Heroku
+# Use PostGres in Heroku instead
+#TODO put in production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -200,6 +201,10 @@ ALLOWED_HOSTS = ['*']
 #CRISPY_FAIL_SILENTLY = not DEBUG
 CRISPY_FAIL_SILENTLY = not DEBUG
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+BITLY_LOGIN = 'o_5u3u0d6391'
+BITLY_API_KEY = 'R_2906963107ed40eabe2e36f8409da736'
+#access_token = 'd215dd5af06274d08e3ead3a6601f596093e05da'
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 # https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/heroku/
