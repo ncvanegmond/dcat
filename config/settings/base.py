@@ -210,3 +210,8 @@ BITLY_API_KEY = 'R_2906963107ed40eabe2e36f8409da736'
 # https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/heroku/
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+try:
+    from .local_settings import *
+except ImportError:
+    print("cannot import local settings")
+    pass
