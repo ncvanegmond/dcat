@@ -55,6 +55,7 @@ coverage.xml
 local_settings.py
 local.py
 stepbystep.txt
+*.sqlite3
 
 
 # Flask stuff:
