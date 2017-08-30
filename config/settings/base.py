@@ -43,6 +43,8 @@ DEBUG = env.bool('DJANGO_DEBUG', True)
 #TODO figure out how this works with environ?
 SITE_ID = 1
 
+SECRET_KEY = '^+duvk^m9q1$bs9__&j18idqcpe@(dgxd&%=iuh9di631m%fq$'
+
 
 # Application definition
 
