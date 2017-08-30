@@ -37,7 +37,8 @@ if READ_DOT_ENV_FILE:
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DJANGO_DEBUG', True)
+#DEBUG = env.bool('DJANGO_DEBUG', True)
+DEBUG = True
 
 #TODO figure out where this goes 
 #TODO figure out how this works with environ?
