@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block twitter_card %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@NCvanEgmond">
+    <meta name="twitter:creator" content="@NCvanEgmond">
+    <meta name="twitter:title" content="Momentum chart for Anon Crypto">
+    <meta name="twitter:description" content="Daily returns vs 7D returns">
+    {% load static %}
+    <meta name="twitter:image" content="{% static "apicc/momentum_anon.png" %}">
+    <!--<meta name="twitter:domain" content="Dutch Crypto Asset Investors">-->
+{% endblock %}
+    
+{% block content %}
+
+<h1>Momentum chart: Cryptocurrencies</h1>
+<p>Be patient, takes a couple of seconds to get and process the data. More 
+portfolios to come. Let me know which you would like to see on <a href="https://twitter.com/NCvanEgmond" target="_blank">
+ Twitter</a></p>
+
+<form method="GET" action="{% url 'apicc:draw_mpl_model' %}">
+            {{ form }}
+            <input type="submit" class="button" value="Generate plot">
+        </form>
+
+        <img src="{% url 'apicc:momentum_plot_model' pname %}"><br>
+
+
+{% load social_share %}
+{% load bitly %}
+{% with request.build_absolute_uri as full_url %}
+{% with full_url|bitlify as image_static %}
+{% post_to_twitter "Weekly momentum: Anonymous $Crypto via @NCvanEgmond" image_static "Share on Twitter" %}
+{% endwith %}
+{% endwith %}
+{% endblock %}
+
+
