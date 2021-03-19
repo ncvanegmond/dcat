@@ -9,7 +9,7 @@ django-crispy-forms==1.6.1
 django-environ==0.4.1
 django-social-share==1.1.2
 django-toolbelt==0.0.1
-djangorestframework==3.6.2
+djangorestframework==3.11.2
 gunicorn==19.7.1
 idna==2.6
 matplotlib==2.0.2
